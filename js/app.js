@@ -25,8 +25,6 @@ addBtn.addEventListener('click', function(e){
     localStorage.setItem('notes', JSON.stringify(notesObj));   //converts object into string
     addTxt.value = "";   //clears the textbox
 
-    // console.log(notesObj);
-
     showNotes();   //to add the note to 'Your Notes' section
 });
 
@@ -62,8 +60,6 @@ function showNotes() {
 
 // Fuction to delete a note
 function deleteNote(index) {
-    // console.log("I am deleting", index);
-
     let notes = localStorage.getItem('notes');
     if(notes == null) {
         notesObj = [];
@@ -77,3 +73,29 @@ function deleteNote(index) {
 
     showNotes();  //to update 'Your Notes' after deleting
 }
+
+// Search Box
+let search = document.getElementById('searchTxt');
+
+search.addEventListener('input', function () {    //input event
+    let inputVal = search.value.toLowerCase();
+    console.log(inputVal);
+    let noteCards = document.getElementsByClassName("noteCard");
+    Array.from(noteCards).forEach(function(element) {
+        let cardTxt = element.getElementsByTagName("p")[0].innerText.toLowerCase();
+        if(cardTxt.includes(inputVal)) {
+            element.style.display = "inline-block";
+        }
+        else {
+            element.style.display = "none";
+        }
+    })
+});
+
+
+/* Further Features:
+   1. Add Title + Search by title
+   2. Mark Important Notes - extra styling
+   3. Edit Notes
+   4. Sync and host to web server - database
+*/
